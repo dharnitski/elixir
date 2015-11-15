@@ -22,4 +22,16 @@ defmodule TestMath do
       Math.zero?([1,2,3])
     end
   end
+
+  test "capture functon from module" do
+    fun = &Math.zero?/1
+    assert is_function fun
+  end
+
+  test "build function using capture syntax" do
+    fun = &(&1 + 1)
+    #Function<6.71889879/1 in :erl_eval.expr/5>
+    assert fun.(1) == 2
+  end
+
 end

@@ -8,11 +8,11 @@ defmodule Math do
  end
 
  def zero?(0) do
-     true
-   end
+   true
+ end
 
-   def zero?(x) when is_number(x) do
-     false
-   end
+ def zero?(x) when is_number(x) do
+  false
+ end
 
 end

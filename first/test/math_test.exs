@@ -36,8 +36,16 @@ defmodule TestMath do
     assert fun.(1) == 2
   end
 
-  test "sum elemnts in the list using recursion" do
-    Math.sum_list([1, 2, 3], 0) == 6
+  test "sum elements in the list using recursion" do
+    assert Math.sum_list([1, 2, 3], 0) == 6
+    assert Enum.reduce([1, 2, 3], 0, fn(x, acc) -> x + acc end) == 6
+    assert Enum.reduce([1, 2, 3], 0, &+/2) == 6
+  end
+
+  test "double elements in the list using recursion" do
+    assert Math.double_each([1, 2, 3]) == [2, 4, 6]
+    assert Enum.map([1, 2, 3], fn(x) -> x * 2 end) == [2, 4, 6]
+    assert Enum.map([1, 2, 3], &(&1 * 2)) == [2, 4, 6]
   end
 
 end

@@ -1,3 +1,4 @@
+# from http://elixir-lang.org/getting-started/modules.html
 defmodule TestMath do
   use ExUnit.Case
   doctest Math
@@ -29,9 +30,14 @@ defmodule TestMath do
   end
 
   test "build function using capture syntax" do
+    #similar to fn x -> x + 1 end
     fun = &(&1 + 1)
     #Function<6.71889879/1 in :erl_eval.expr/5>
     assert fun.(1) == 2
+  end
+
+  test "sum elemnts in the list using recursion" do
+    Math.sum_list([1, 2, 3], 0) == 6
   end
 
 end

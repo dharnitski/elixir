@@ -20,9 +20,24 @@ defmodule TestEnum do
     assert Enum.filter(1..3, odd?) == [1, 3]
   end
 
-  test "pipeline" do
+  test "functions without pipeline" do
+    odd? = &(rem(&1, 2) != 0)
+    assert Enum.sum(Enum.filter(Enum.map(1..100_000, &(&1 * 3)), odd?)) == 7500000000
+  end
+
+  test "pipelines are eager" do
     odd? = &(rem(&1, 2) != 0)
     assert 1..100_000 |> Enum.map(&(&1 * 3)) |> Enum.filter(odd?) |> Enum.sum == 7500000000
+  end
+
+  test "streams are lazy, computations are invoked only when we pass it to the Enum module" do
+    odd? = &(rem(&1, 2) != 0)
+    assert 1..100_000 |> Stream.map(&(&1 * 3)) |> Stream.filter(odd?) |> Enum.sum == 7500000000
+  end
+
+  test "Stream.cycle/1 cycles a given enumerable infinitely" do
+    stream = Stream.cycle([1, 2, 3])
+    assert Enum.take(stream, 10) == [1, 2, 3, 1, 2, 3, 1, 2, 3, 1]
   end
 
 end

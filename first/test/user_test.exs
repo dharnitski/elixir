@@ -1,4 +1,4 @@
-# from http://elixir-lang.org/getting-started/modules.html
+# from http://elixir-lang.org/getting-started/structs.html
 defmodule TestUser do
   use ExUnit.Case
   doctest User
@@ -30,7 +30,7 @@ defmodule TestUser do
   test "structs pattern matching" do
     john = %User{}
     %User{name: name} = john
-    assert name = "John"
+    assert name == "John"
 
     assert_raise MatchError, fn ->
       %User{} = %{}
@@ -40,7 +40,7 @@ defmodule TestUser do
   test "structs are just bare maps underneath" do
     john = %User{}
 
-    assert is_map(john)
+    assert is_map(john) == true
 
     assert john.__struct__ == User
 
@@ -50,7 +50,7 @@ defmodule TestUser do
     end
 
     assert_raise Protocol.UndefinedError, fn ->
-      Enum.each john, fn({field, value}) -> IO.puts(value) end
+      Enum.each john, fn({field, value}) -> IO.puts({field, value}) end
     end
 
     #A struct also is not a dictionary
@@ -60,26 +60,9 @@ defmodule TestUser do
 
   end
 
-  test "structs are just bare maps underneath" do
-    john = %User{}
-
-    assert is_map(john)
-
-    assert john.__struct__ == User
-
-    #map protocols are not implemented for struct
-    assert_raise UndefinedFunctionError, fn ->
-      john[:name]
-    end
-
-    assert_raise Protocol.UndefinedError, fn ->
-      Enum.each john, fn({field, value}) -> IO.puts(value) end
-    end
-  end
-
   test "structs work with the functions from the Map module" do
     kurt = Map.put(%User{}, :name, "Kurt")
-    
+
     assert Map.merge(kurt, %User{name: "Takashi"}) == %User{age: 27, name: "Takashi"}
 
     assert Map.keys(kurt) == [:__struct__, :age, :name]

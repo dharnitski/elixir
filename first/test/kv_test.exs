@@ -24,6 +24,7 @@ defmodule TestKV do
   end
 
   test "stores key-values" do
+    #self() evaluetaed at run time and will return current process
     parent = self()
     {:ok, pid} = KV.start_link
     send pid, {:put, :hello, :world}
@@ -45,6 +46,7 @@ defmodule TestKV do
     receive do
       :world -> "Got data from persistent storage"
     after
+      #set to 0_000 for false negative test
       0_100 -> assert false, ":world should be in main process mainbox"
     end
   end

@@ -6,21 +6,15 @@ defmodule TestKV do
   test "receive" do
     send self(), {:hello, "world"}
     #{:hello, "world"}
-    receive do
-      {:hello, msg} -> msg
-    after
-      0_000 -> assert false, ":hello should be received"
-    end
+
+    assert_received {:hello, "world"}
   end
 
   test "receive atom" do
     send self(), {:hello}
     #{:hello, "world"}
-    receive do
-      {:hello} -> "success"
-    after
-      0_000 -> assert false, ":hello should be received"
-    end
+
+    assert_received {:hello}
   end
 
   test "stores key-values" do
@@ -43,12 +37,7 @@ defmodule TestKV do
     #works
     #spawn fn -> send(parent, :world) end
 
-    receive do
-      :world -> "Got data from persistent storage"
-    after
-      #set to 0_000 for false negative test
-      0_100 -> assert false, ":world should be in main process mainbox"
-    end
+    assert_receive :world
   end
 
   test "store key-values using Agent" do

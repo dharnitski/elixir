@@ -2,3 +2,6 @@ first/_build
 first/deps
 mix.lock
 *.beam
+_build
+deps
+doc

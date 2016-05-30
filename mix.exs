@@ -4,10 +4,13 @@ defmodule First.Mixfile do
   def project do
     [app: :first,
      version: "0.0.1",
-     elixir: "~> 1.1",
+     elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps]
+     deps: deps,
+     test_coverage: [tool: ExCoveralls],
+     preferred_cli_env: ["coveralls": :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
+   ]
   end
 
   # Configuration for the OTP application
@@ -28,6 +31,7 @@ defmodule First.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [{:earmark, "~> 0.1", only: :dev},
-     {:ex_doc, "~> 0.11", only: :dev}]
+     {:ex_doc, "~> 0.11", only: :dev},
+     {:excoveralls, "~> 0.5", only: :test}]
   end
 end

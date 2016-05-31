@@ -1,19 +1,9 @@
 # First
+[![Build Status](https://travis-ci.org/dharnitski/elixir-first.svg?branch=develop)](https://travis-ci.org/dharnitski/elixir-first)
+[![Coverage Status](https://coveralls.io/repos/github/dharnitski/elixir-first/badge.svg?branch=develop)](https://coveralls.io/github/dharnitski/elixir-first?branch=develop)
 
-**TODO: Add description**
+## How to run tests
 
-## Installation
+* Open project folder in console
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
-
-  1. Add first to your list of dependencies in `mix.exs`:
-
-        def deps do
-          [{:first, "~> 0.0.1"}]
-        end
-
-  2. Ensure first is started before your application:
-
-        def application do
-          [applications: [:first]]
-        end
+* Execute command `mix coveralls`
